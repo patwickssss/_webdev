@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Development Projects</title>
+    <link rel="icon" href="assets/imgs/Group 26.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/ACT01/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-12 col-lg-6">
+                <div class="d-flex flex-column p-4">
+                    <div class="display-2 fw-bold mb-4">
+                        Website Development Projects
+                    </div>
+                    <div>
+                        <a href="#projects" class="btn btn-primary rounded-pill fw-bold py-2 px-5 fs-5 ">See my
+                            projects</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card rounded-4 overflow-hidden box-shadow text-light border-2 border-dark"
+                    style="min-height: 350px;">
+                    <!-- frame-bar -->
+                    <div class="d-flex align-items-center gap-3 py-3 px-3 border-0 border-bottom border-2 border-dark"
+                        style="background: var(--mint);">
+                        <span class="dot" style="background: var(--coral);"></span>
+                        <span class="dot" style="background: var(--sun);"></span>
+                        <span class="dot" style="background: var(--paper);"></span>
+                        <span class="bg-light w-100 text-dark px-3 py-1 ms-2 rounded-5">localhost:3000</span>
+                    </div>
+                    <!-- frame-body -->
+                    <div class="p-4 code-font-family fs-6" style="line-height: 1.8; min-height: 250px;">
+                        <div><span style="color: var(--muted);">//currently building</span></div>
+                        <div><span style="color: var(--cobalt);">const <span style="color:var(--ink);">developer =
+                                    {</span></span></div>
+                        <div><span style="color:var(--ink);">&nbsp;&nbsp;name: <span
+                                    style="color:var(--coral);">"Arland"<span
+                                        style="color:var(--ink);">,</span></span></span></div>
+                        <div><span style="color:var(--ink);">&nbsp;&nbsp;stack: [<span style="color:var(--coral);">
+                                    "HTML"<span style="color:var(--ink);">,</span> "CSS"<span
+                                        style="color:var(--ink);">,</span>
+                                    "JavaScript"<span style="color:var(--ink);">,</span> "Bootstrap"<span
+                                        style="color:var(--ink);"> ],</span></span></span></div>
+                        <div><span style="color:var(--ink);">&nbsp;&nbsp;status:<span style="color:var(--coral);"> "open
+                                    to new projects"</span></span></div>
+                        <div><span style="color:var(--ink);">}; </span><span class="caret"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="projects">
+        <div class="row mb-5">
+            <div class="col-12">
+                <!-- Header -->
+                <div class="p-4 ">
+                    <div class="display-6 fw-bold mb-2">Projects</div>
+                    <div class="h6">Filter by project type to find what you are looking for.</div>
+                </div>
+                <!-- Filter-buttons -->
+                <div class="d-flex flex-wrap gap-2 px-4">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="landing">Landing pages</button>
+                    <button class="filter-btn" data-filter="websites">Websites</button>
+                    <button class="filter-btn" data-filter="gamedev">Game Development</button>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 p-3 mb-5">
+            <!-- a.Gallery project -->
+            <div class="col-md-6 col-lg-4 project" data-type="landing">
+                <div class="card project-card rounded-4 overflow-hidden box-shadow text-light border-2 border-dark"
+                    style="min-height: 250px;" data-bs-toggle="modal" data-bs-target="#projectModal"
+                    data-title="a.Gallery"
+                    data-desc="A static photo gallery website created to showcase original photography, artwork, and visual collections."
+                    data-img="assets/imgs/ACT01/MY_HERO_ACADEMIA/gallery-poster.png" data-tech="HTML,Bootstrap"
+                    data-live="ACT01/index.html" data-source="example.com">
+                    <!-- frame-bar -->
+                    <div class="d-flex align-items-center gap-3 py-2 px-3 border-0 border-bottom border-2 border-dark"
+                        style="background: var(--mint);">
+                        <span class="dot" style="background: var(--coral);"></span>
+                        <span class="dot" style="background: var(--sun);"></span>
+                        <span class="dot" style="background: var(--paper);"></span>
+                        <span class="bg-light w-100 text-dark px-3 py-1 ms-2 rounded-5">a.Gallery.com</span>
+                    </div>
+                    <div class="card">
+                        <img src="assets/imgs/ACT01/MY_HERO_ACADEMIA/gallery-poster.png" alt="">
+                    </div>
+                    <div class="d-flex flex-column flex-grow-1 py-3 px-4" style="color: var(--ink);">
+                        <div class="h5 fw-bold">a.Gallery</div>
+                        <p style="text-align: justify;">A static photo gallery website created to showcase original
+                            photography, artwork, and visual collections.</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="d-flex border border-2 rounded-3 px-2 align-items-center fw-medium"
+                                style="background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;">HTML</span>
+                            <span class="d-flex border border-2 rounded-3 px-2 align-items-center fw-medium"
+                                style="background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;">Bootstrap</span>
+                        </div>
+                        <!-- <div class="d-flex justify-content-center gap-1">
+                            <a class="text-decoration-none px-3 py-1 fw-bold rounded-5 rounded-end" target="_blank" href="ACT01/index.html" style="background: var(--cobalt); color: var(--paper);">Live demo</a>
+                            <a class="text-decoration-none px-3 py-1 fw-bold rounded-5 rounded-start" target="_blank" href="#" style="background: var(--cobalt); color: var(--paper);">Source code</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content project-modal" style="color: var(--ink);">
+                <div class="modal-header border-0 border-bottom border-2 border-dark" style="background: var(--mint);">
+                    <h5 class="modal-title fw-bold" id="projectModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="projectModalImg" class="project-modal-img rounded-3 border border-2 border-dark mb-3"
+                        alt="">
+                    <p id="projectModalDesc"></p>
+                    <div id="projectModalTech" class="d-flex flex-wrap gap-2"></div>
+                </div>
+                <div class="modal-footer border-0 justify-content-center w-100">
+                    <a id="projectModalLive"
+                        class="w-50 d-flex justify-content-center text-decoration-none px-5 py-2 m-0 fw-bold rounded-start-pill"
+                        target="_blank" href="#" style="background: var(--cobalt); color: var(--paper);">Live demo</a>
+                    <a id="projectModalSource"
+                        class="w-50 d-flex justify-content-center text-decoration-none px-5 py-2 m-0 fw-bold rounded-end-pill"
+                        target="_blank" href="#" style="background: var(--ink); color: var(--paper);">Source code</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>
+
+    <script>
+        const projectModal = document.getElementById('projectModal');
+
+        projectModal.addEventListener('show.bs.modal', (event) => {
+            const card = event.relatedTarget; // the card that was clicked
+            const { title, desc, img, tech, live, source } = card.dataset;
+
+            document.getElementById('projectModalTitle').textContent = title;
+            document.getElementById('projectModalDesc').textContent = desc;
+
+            const image = document.getElementById('projectModalImg');
+            image.src = img;
+            image.alt = title;
+
+            const techBox = document.getElementById('projectModalTech');
+            techBox.innerHTML = '';
+            (tech || '').split(',').forEach((t) => {
+                const tag = document.createElement('span');
+                tag.className = 'd-flex border border-2 rounded-3 px-2 align-items-center fw-medium';
+                tag.style.cssText = 'background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;';
+                tag.textContent = t.trim();
+                techBox.appendChild(tag);
+            });
+
+            // show buttons only when a real link exists
+            const setLink = (id, url) => {
+                const el = document.getElementById(id);
+                el.href = url || '#';
+                el.classList.toggle('d-none', !url || url === '#');
+            };
+            setLink('projectModalLive', live);
+            setLink('projectModalSource', source);
+        });
+
+        // Project filter
+        const buttons = document.querySelectorAll('.filter-btn');
+        const projects = document.querySelectorAll('.project');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const f = btn.dataset.filter;
+                projects.forEach(p => {
+                    p.classList.toggle('d-none', f !== 'all' && p.dataset.type !== f);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
