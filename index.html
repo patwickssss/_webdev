@@ -75,43 +75,7 @@
             </div>
         </div>
         <div class="row g-3 p-3 mb-5">
-            <!-- a.Gallery project -->
-            <div class="col-md-6 col-lg-4 project" data-type="landing">
-                <div class="card project-card rounded-4 overflow-hidden box-shadow text-light border-2 border-dark"
-                    style="min-height: 250px;" data-bs-toggle="modal" data-bs-target="#projectModal"
-                    data-title="a.Gallery"
-                    data-desc="A static photo gallery website created to showcase original photography, artwork, and visual collections."
-                    data-img="assets/imgs/ACT01/MY_HERO_ACADEMIA/gallery-poster.png" data-tech="HTML,Bootstrap"
-                    data-live="ACT01/index.html" 
-                    data-source="https://github.com/patwickssss/_webdev.git">
-                    <!-- frame-bar -->
-                    <div class="d-flex align-items-center gap-3 py-2 px-3 border-0 border-bottom border-2 border-dark"
-                        style="background: var(--mint);">
-                        <span class="dot" style="background: var(--coral);"></span>
-                        <span class="dot" style="background: var(--sun);"></span>
-                        <span class="dot" style="background: var(--paper);"></span>
-                        <span class="bg-light w-100 text-dark px-3 py-1 ms-2 rounded-5">a.Gallery.com</span>
-                    </div>
-                    <div class="card">
-                        <img src="assets/imgs/ACT01/MY_HERO_ACADEMIA/gallery-poster.png" alt="">
-                    </div>
-                    <div class="d-flex flex-column flex-grow-1 py-3 px-4" style="color: var(--ink);">
-                        <div class="h5 fw-bold">a.Gallery</div>
-                        <p style="text-align: justify;">A static photo gallery website created to showcase original
-                            photography, artwork, and visual collections.</p>
-                        <div class="d-flex flex-wrap gap-2 mb-3">
-                            <span class="d-flex border border-2 rounded-3 px-2 align-items-center fw-medium"
-                                style="background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;">HTML</span>
-                            <span class="d-flex border border-2 rounded-3 px-2 align-items-center fw-medium"
-                                style="background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;">Bootstrap</span>
-                        </div>
-                        <!-- <div class="d-flex justify-content-center gap-1">
-                            <a class="text-decoration-none px-3 py-1 fw-bold rounded-5 rounded-end" target="_blank" href="ACT01/index.html" style="background: var(--cobalt); color: var(--paper);">Live demo</a>
-                            <a class="text-decoration-none px-3 py-1 fw-bold rounded-5 rounded-start" target="_blank" href="#" style="background: var(--cobalt); color: var(--paper);">Source code</a>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
+            <div class="row g-3 p-3 mb-5" id="projectList"></div>
         </div>
     </div>
     <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalTitle" aria-hidden="true">
@@ -143,54 +107,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
 
-    <script>
-        const projectModal = document.getElementById('projectModal');
-
-        projectModal.addEventListener('show.bs.modal', (event) => {
-            const card = event.relatedTarget; // the card that was clicked
-            const { title, desc, img, tech, live, source } = card.dataset;
-
-            document.getElementById('projectModalTitle').textContent = title;
-            document.getElementById('projectModalDesc').textContent = desc;
-
-            const image = document.getElementById('projectModalImg');
-            image.src = img;
-            image.alt = title;
-
-            const techBox = document.getElementById('projectModalTech');
-            techBox.innerHTML = '';
-            (tech || '').split(',').forEach((t) => {
-                const tag = document.createElement('span');
-                tag.className = 'd-flex border border-2 rounded-3 px-2 align-items-center fw-medium';
-                tag.style.cssText = 'background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;';
-                tag.textContent = t.trim();
-                techBox.appendChild(tag);
-            });
-
-            // show buttons only when a real link exists
-            const setLink = (id, url) => {
-                const el = document.getElementById(id);
-                el.href = url || '#';
-                el.classList.toggle('d-none', !url || url === '#');
-            };
-            setLink('projectModalLive', live);
-            setLink('projectModalSource', source);
-        });
-
-        // Project filter
-        const buttons = document.querySelectorAll('.filter-btn');
-        const projects = document.querySelectorAll('.project');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const f = btn.dataset.filter;
-                projects.forEach(p => {
-                    p.classList.toggle('d-none', f !== 'all' && p.dataset.type !== f);
-                });
-            });
-        });
-    </script>
+    <script src="assets/js/projects.js"></script>
 </body>
 
 </html>
