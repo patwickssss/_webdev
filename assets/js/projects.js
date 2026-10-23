@@ -18,7 +18,7 @@ const projects = [
         desc: "A static photo gallery website created to showcase original photography, artwork, and visual collections.",
         img: "assets/imgs/poster/ACT01/gallery-poster.png",
         tech: ["HTML", "Bootstrap"],
-        live: "ACT02/index.html",
+        live: "ACT01/index.html",
         source: "https://github.com/patwickssss/_webdev/tree/main/ACT01",
     },
     // {
