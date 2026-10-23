@@ -1,0 +1,43 @@
+:root {
+    --cream: #D5C7AD;
+    --feed-bg: #8B8E75;
+    --green: rgb(2, 91, 2);
+}
+
+.bg-cream {
+    background: var(--cream);
+}
+
+.bg-feed {
+    background: var(--feed-bg);
+}
+
+.text-green {
+    color: var(--green);
+}
+
+/* sidebar: text and images are sized in em, so they shrink with the font-size below */
+.sidebar {
+    font-size: clamp(0.8rem, 1.5vw, 1.25rem);
+}
+
+.name {
+    font-size: 2.2em;
+}
+
+.dp {
+    width: 6em;
+    height: 6em;
+}
+
+.icon {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+/* hover / active */
+.nav-link:hover,
+.nav-link.active {
+    text-decoration: underline;
+    color: var(--green);
+}
