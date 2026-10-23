@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- View post page -->
+    <title>a.Blog: Post</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Only brand colors, hover effects and the post text wrapping -->
+    <style>
+        :root {
+            --cream: #D5C7AD;
+            --paper: #F1EAD8;
+            --feed-bg: #8B8E75;
+            --green: rgb(2, 91, 2);
+        }
+
+        .bg-cream { background: var(--cream); }
+        .bg-paper { background: var(--paper); }
+        .bg-feed { background: var(--feed-bg); }
+        .text-green { color: var(--green); }
+        .post-content { white-space: pre-wrap; word-wrap: break-word; }
+        .nav-link:hover, .post-link:hover { text-decoration: underline; color: var(--green); }
+    </style>
+</head>
+
+<body class="bg-feed d-flex flex-column min-vh-100">
+
+    <!-- HEADER -->
+    <header class="bg-cream">
+        <!-- NAVIGATION -->
+        <ul class="nav justify-content-around align-items-center border-bottom border-1 border-dark py-3" id="mainNav">
+            <li class="nav-item"><a class="nav-link fw-bold fs-5 text-green" href="index.html#home" data-page="home">Home</a></li>|
+            <li class="nav-item"><a class="nav-link fw-bold fs-5 text-green" href="index.html#blog" data-page="blog">Blog</a></li>|
+            <li class="nav-item"><a class="nav-link fw-bold fs-5 text-green" href="index.html#library" data-page="library">Library</a></li>|
+            <li class="nav-item"><a class="nav-link fw-bold fs-5 text-green" href="index.html#about" data-page="about">About</a></li>
+        </ul>
+    </header>
+
+    <!-- POST -->
+    <main class="container-fluid flex-grow-1 p-4">
+        <div id="post-box" class="row g-4"></div>
+    </main>
+
+    <footer class="text-center small pb-3">&copy; a.Blog. All rights reserved 2025.</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadPost);
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        // Displayed reference format: a.blog/posts/refference/{blog-title}
+        // (the link itself still goes to the post's real URL)
+        function referenceLabel(title) {
+            const slug = String(title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+            return `a.blog/posts/refference/${slug}`;
+        }
+
+        function getPosts() {
+            try {
+                const posts = JSON.parse(localStorage.getItem("posts"));
+                return Array.isArray(posts) ? posts : [];
+            } catch (err) {
+                console.warn("Could not read posts from localStorage", err);
+                return [];
+            }
+        }
+
+        function loadPost() {
+            const box = document.getElementById("post-box");
+            const id = Number(new URLSearchParams(location.search).get("id"));
+            const post = getPosts().find(p => p.id === id);
+
+            if (!post) {
+                box.innerHTML = `
+                    <div class="col-12 text-center text-white my-5">
+                        <h2 class="fw-bold">Post not found</h2>
+                        <a href="index.html" class="btn btn-success rounded-pill px-4 mt-2">Back to Home</a>
+                    </div>`;
+                return;
+            }
+
+            document.title = `a.Blog: ${post.title}`;
+
+            const images = (post.images || [])
+                .map(src => `<img src="${escapeHtml(src)}" alt="${escapeHtml(post.title)}"
+                    class="img-fluid w-100 border border-2 border-dark rounded object-fit-cover mb-3">`)
+                .join("");
+
+            // only a real web link counts as a reference (empty or "#..." values are ignored)
+            const hasReference = /^https?:\/\//i.test(post.url || "");
+
+            const link = hasReference
+                ? `<a href="${escapeHtml(post.url)}" target="_blank" rel="noopener"
+                      class="post-link text-dark text-decoration-none fst-italic text-break">${escapeHtml(referenceLabel(post.title))}</a>`
+                : "";
+
+            box.innerHTML = `
+                ${images ? `<div class="col-lg-5 order-lg-2">
+                    <div class="bg-paper border border-3 border-dark p-3">${images}</div>
+                </div>` : ""}
+
+                <div class="${images ? "col-lg-7" : "col-12"} order-lg-1">
+                    <article class="bg-paper border border-3 border-dark p-4 p-md-5">
+                        <h1 class="fw-bold text-green">${escapeHtml(post.title)}</h1>
+                        <p class="post-content fs-5 mt-4">${escapeHtml(post.content)}</p>
+                        <p class="fw-bold fs-5 text-end mb-0">— ${escapeHtml(post.author || "")}</p>
+                        <hr class="border-success border-2 opacity-100">
+                        <div class="d-flex flex-wrap justify-content-between gap-2">
+                            <span class="fw-bold">${escapeHtml(post.date || "")}</span>
+                            ${link}
+                        </div>
+                    </article>
+                </div>`;
+        }
+    </script>
+</body>
+
+</html>
