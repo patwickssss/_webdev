@@ -1,113 +1,443 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Development Projects</title>
-    <link rel="icon" href="assets/imgs/Group 26.svg">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>League of Legends</title>
+    <link rel="icon" href="../assets/imgs/Group 26.svg">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --surface: #111113;
+            --line: #2a2a2e;
+            --line-strong: #5a5a60;
+            --paper: #F1EAD8;
+            --muted: #8d8d94;
+        }
+
+        body {
+            background: var(--surface);
+            color: var(--paper);
+        }
+
+        .hero-image {
+            position: relative;
+            height: 100%;
+        }
+
+        .hero-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(to right, black, transparent);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Champion Section */
+        .champion-section {
+            position: relative;
+            padding-bottom: 6rem !important;
+        }
+
+        /* Pagination Popup */
+        .pagination-popup {
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .pagination-popup.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card {
+            width: 100%;
+            height: 200px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Card Hover */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            border-color: var(--line-strong);
+        }
+
+        /* Champion Image */
+        .champ-image {
+            object-fit: cover;
+            object-position: center;
+            position: relative;
+        }
+
+        /* Shadow on the LEFT side of champion image */
+        .champ-image {
+            box-shadow: inset 20px 0 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .champ-image-shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(to right, var(--surface), transparent);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .champ-name {
+            position: relative;
+            z-index: 1;
+            background: var(--surface);
+            color: var(--paper);
+        }
+
+        /* Shadow on the RIGHT side of champion name */
+        .champ-name::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -40px;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(to right, var(--surface), transparent);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .page-link {
+            background: var(--surface);
+            color: var(--paper);
+            border-color: var(--line);
+            cursor: pointer;
+        }
+
+        .page-link:hover {
+            background: var(--line);
+            color: white;
+        }
+
+        .page-item.active .page-link {
+            background: var(--paper);
+            color: black;
+            border-color: var(--paper);
+        }
+
+        .page-ellipsis {
+            background: #333333 !important;
+            color: white !important;
+            border-color: #333333 !important;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row py-5">
-            <div class="col-12 col-lg-6">
-                <div class="d-flex flex-column p-4">
-                    <div class="display-2 fw-bold mb-4">
-                        Website Development Projects
-                    </div>
-                    <div>
-                        <a href="#projects" class="btn btn-primary rounded-pill fw-bold py-2 px-5 fs-5 ">See my
-                            projects</a>
-                    </div>
+
+    <!-- Hero -->
+    <div class="container-fluid" style="height: calc(100vh - 100px); background: rgb(0, 0, 0);">
+        <div class="row h-100 position-relative">
+
+            <div class="col-lg-5 p-0 position-absolute top-50 start-0 translate-middle-y z-1 text-end">
+                <div class="display-1 fw-bold pe-4 text-white" style="font-family: 'Cinzel', serif;">
+                    LEAGUE OF LEGENDS
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
-                <div class="card rounded-4 overflow-hidden box-shadow text-light border-2 border-dark"
-                    style="min-height: 350px;">
-                    <!-- frame-bar -->
-                    <div class="d-flex align-items-center gap-3 py-3 px-3 border-0 border-bottom border-2 border-dark"
-                        style="background: var(--mint);">
-                        <span class="dot" style="background: var(--coral);"></span>
-                        <span class="dot" style="background: var(--sun);"></span>
-                        <span class="dot" style="background: var(--paper);"></span>
-                        <span class="bg-light w-100 text-dark px-3 py-1 ms-2 rounded-5">localhost:3000</span>
-                    </div>
-                    <!-- frame-body -->
-                    <div class="p-4 code-font-family fs-6" style="line-height: 1.8; min-height: 250px;">
-                        <div><span style="color: var(--muted);">//currently building</span></div>
-                        <div><span style="color: var(--cobalt);">const <span style="color:var(--ink);">developer =
-                                    {</span></span></div>
-                        <div><span style="color:var(--ink);">&nbsp;&nbsp;name: <span
-                                    style="color:var(--coral);">"Arland"<span
-                                        style="color:var(--ink);">,</span></span></span></div>
-                        <div><span style="color:var(--ink);">&nbsp;&nbsp;stack: [<span style="color:var(--coral);">
-                                    "HTML"<span style="color:var(--ink);">,</span> "CSS"<span
-                                        style="color:var(--ink);">,</span>
-                                    "JavaScript"<span style="color:var(--ink);">,</span> "Bootstrap"<span
-                                        style="color:var(--ink);"> ],</span></span></span></div>
-                        <div><span style="color:var(--ink);">&nbsp;&nbsp;status:<span style="color:var(--coral);"> "open
-                                    to new projects"</span></span></div>
-                        <div><span style="color:var(--ink);">}; </span><span class="caret"></span></div>
-                    </div>
-                </div>
+
+            <div class="col-lg-7 p-0 ms-auto hero-image">
+                <img class="w-100 h-100 object-fit-cover"
+                    src="https://www.buff.game/wp-content/uploads/2021/03/Ahri_OriginalCentered.jpg"
+                    alt="League of Legends">
             </div>
+
         </div>
     </div>
-    <div class="container" id="projects">
-        <div class="row mb-5">
-            <div class="col-12">
-                <!-- Header -->
-                <div class="p-4 ">
-                    <div class="display-6 fw-bold mb-2">Projects</div>
-                    <div class="h6">Filter by project type to find what you are looking for.</div>
+
+    <!-- Champion List -->
+    <div class="container py-5 champion-section" id="championSection">
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="display-6 fw-bold" style="font-family: 'Cinzel', serif;">
+                    CHAMPIONS
                 </div>
-                <!-- Filter-buttons -->
-                <div class="d-flex flex-wrap gap-2 px-4">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="landing">Landing pages</button>
-                    <button class="filter-btn" data-filter="websites">Websites</button>
-                    <button class="filter-btn" data-filter="gamedev">Game Development</button>
+                <div class="text-secondary">
+                    League of Legends Champion Collection
                 </div>
             </div>
         </div>
-        <div class="row g-3 p-3 mb-5">
-            <div class="row g-3 p-3 mb-5" id="projectList"></div>
+
+        <!-- Champions -->
+        <div class="row g-4" id="parent">
         </div>
-    </div>
-    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content project-modal" style="color: var(--ink);">
-                <div class="modal-header border-0 border-bottom border-2 border-dark" style="background: var(--mint);">
-                    <h5 class="modal-title fw-bold" id="projectModalTitle"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img id="projectModalImg" class="project-modal-img rounded-3 border border-2 border-dark mb-3"
-                        alt="">
-                    <p id="projectModalDesc"></p>
-                    <div id="projectModalTech" class="d-flex flex-wrap gap-2"></div>
-                </div>
-                <div class="modal-footer border-0 justify-content-center w-100">
-                    <a id="projectModalLive"
-                        class="w-50 d-flex justify-content-center text-decoration-none px-5 py-2 m-0 fw-bold rounded-start-pill"
-                        target="_blank" href="#" style="background: var(--cobalt); color: var(--paper);">Live demo</a>
-                    <a id="projectModalSource"
-                        class="w-50 d-flex justify-content-center text-decoration-none px-5 py-2 m-0 fw-bold rounded-end-pill"
-                        target="_blank" href="#" style="background: var(--ink); color: var(--paper);">Source code</a>
-                </div>
-            </div>
-        </div>
+
+        <!-- Pagination Trigger -->
+        <div id="paginationTrigger"></div>
+
+        <!-- Pagination -->
+        <nav class="pagination-popup" id="paginationNav" aria-label="Champion pagination">
+            <ul class="pagination gap-2 justify-content-center mb-0" id="pagination">
+            </ul>
+        </nav>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
-    <script src="assets/js/projects.js"></script>
+    <script>
+
+        // API
+        const api = 'https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion.json';
+
+        // Pagination
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        var page = Number(urlParams.get('page')) || 1;
+
+        var perPageLoad = 20;
+        var totalChampions = 0;
+        var lastPage = 1;
+
+        // Elements
+        var elParent = document.getElementById("parent");
+        var elPagination = document.getElementById("pagination");
+        var elPaginationNav = document.getElementById("paginationNav");
+
+        // Capitalize First Letter
+        function capitalizeFirstLetter(str) {
+            if (!str) return str;
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Render Pagination
+        function renderPagination() {
+
+            var startPage = Math.max(1, Math.min(page, lastPage - 4));
+            var endPage = Math.min(startPage + 4, lastPage);
+
+            var paginationHTML = `
+                <li class="page-item">
+                    <a class="page-link" href="#" onclick="prev(); return false;">Prev</a>
+                </li>
+            `;
+
+            // Previous ellipsis
+            if (startPage > 1) {
+                paginationHTML += `
+                    <li class="page-item disabled">
+                        <span class="page-link page-ellipsis">...</span>
+                    </li>
+                `;
+            }
+
+            // Page numbers
+            for (var i = startPage; i <= endPage; i++) {
+                paginationHTML += `
+                    <li class="page-item ${i === page ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="goToPage(${i}); return false;">
+                            ${i}
+                        </a>
+                    </li>
+                `;
+            }
+
+            // Next ellipsis
+            if (endPage < lastPage) {
+                paginationHTML += `
+                    <li class="page-item disabled">
+                        <span class="page-link page-ellipsis">...</span>
+                    </li>
+                `;
+            }
+
+            paginationHTML += `
+                <li class="page-item">
+                    <a class="page-link" href="#" onclick="next(); return false;">Next</a>
+                </li>
+            `;
+
+            elPagination.innerHTML = paginationHTML;
+        }
+
+        // Get Champions
+        const getChampions = async () => {
+
+            elParent.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-light"></div>
+                    <div class="mt-2 text-secondary">Loading champions...</div>
+                </div>
+            `;
+
+            try {
+
+                var response = await fetch(api);
+                var result = await response.json();
+
+                // Convert API data into an array
+                var champions = Object.values(result.data);
+
+                // Sort champions alphabetically
+                champions.sort((a, b) => a.name.localeCompare(b.name));
+
+                totalChampions = champions.length;
+                lastPage = Math.ceil(totalChampions / perPageLoad);
+
+                // Check page number
+                if (page < 1 || page > lastPage) {
+                    page = 1;
+                }
+
+                // Display current page
+                elParent.innerHTML = '';
+
+                // Update Pagination
+                renderPagination();
+
+                // Pagination range
+                var start = perPageLoad * (page - 1);
+                var end = Math.min(start + perPageLoad, totalChampions);
+
+                // Loop through champions
+                for (var i = start; i < end; i++) {
+
+                    var champion = champions[i];
+
+                    var id = champion.id;
+                    var name = champion.name;
+                    var title = champion.title;
+                    var tags = champion.tags;
+
+                    // Champion splash art
+                    var picture = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + id + '_0.jpg';
+
+                    elParent.innerHTML += `
+                        <div class="col-12 col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="row g-0 h-100">
+
+                                    <div class="col-5 d-flex flex-column justify-content-center align-items-end champ-name p-2">
+                                        <div class="h1 text-end mb-2">
+                                            ${capitalizeFirstLetter(name)}
+                                        </div>
+                                        <div class="small text-secondary text-end">
+                                            ${capitalizeFirstLetter(title)}
+                                        </div>
+                                        <div class="small text-secondary text-end mt-2">
+                                            ${tags.join(' / ')}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-7 p-0 position-relative overflow-hidden">
+                                        <div class="champ-image-shadow"></div>
+                                        <img src="${picture}"
+                                            class="w-100 h-100 champ-image"
+                                            alt="${name}">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                }
+
+                // Update URL
+                window.history.replaceState(null, '', '?page=' + page);
+
+            } catch (error) {
+
+                elParent.innerHTML = `
+                    <div class="col-12 text-center text-danger py-5">
+                        Failed to load champions. Please try again.
+                    </div>
+                `;
+
+                console.error('API Error:', error);
+
+            }
+
+        }
+
+        // Show Pagination when Champion List reaches the bottom
+        const paginationObserver = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+                    elPaginationNav.classList.add('show');
+                } else {
+                    elPaginationNav.classList.remove('show');
+                }
+
+            });
+
+        }, {
+            threshold: 0
+        });
+
+        paginationObserver.observe(document.getElementById("paginationTrigger"));
+
+        // Go to Specific Page
+        function goToPage(number) {
+            page = number;
+            getChampions();
+        }
+
+        // Previous Page
+        function prev() {
+
+            page -= 1;
+
+            if (page < 1) {
+                page = lastPage;
+            }
+
+            getChampions();
+        }
+
+        // Next Page
+        function next() {
+
+            page += 1;
+
+            if (page > lastPage) {
+                page = 1;
+            }
+
+            getChampions();
+        }
+
+        // Initial Load
+        getChampions();
+
+    </script>
+
 </body>
 
 </html>
