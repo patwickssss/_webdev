@@ -35,9 +35,16 @@
     <!-- Champion collection -->
     <div class="container py-5 champion-section" id="championSection">
         <div class="row mb-4">
-            <div class="col">
+            <div class="col-8">
                 <div class="display-6 fw-bold" style="font-family: 'Cinzel', serif;">CHAMPIONS</div>
                 <div class="text-secondary">League of Legends Champion Collection</div>
+            </div>
+            <div class="col-4">
+                <form class="d-flex" id="searchForm">
+                    <input class="form-control me-2 border border-secondary bg-transparent text-white" type="search"
+                        id="searchInput" placeholder="Search champion's name or role..." aria-label="Search">
+                    <button class="btn btn-outline-secondary text-white" type="submit">Search</button>
+                </form>
             </div>
         </div>
 
@@ -69,6 +76,14 @@
         var elParent = document.getElementById("parent");
         var elPagination = document.getElementById("pagination");
         var elPaginationNav = document.getElementById("paginationNav");
+
+        // Search elements and variables.
+        var allChampions = [];
+        var filteredChampions = [];
+        var isSearching = false;
+
+        var elSearchForm = document.getElementById("searchForm");
+        var elSearchInput = document.getElementById("searchInput");
 
         function capitalizeFirstLetter(str) {
             if (!str) return str;
@@ -125,6 +140,7 @@
             elPagination.innerHTML = paginationHTML;
         }
 
+
         // Get the champion list, sort it, then display only the current page.
         const getChampions = async () => {
             elParent.innerHTML = `
@@ -139,17 +155,38 @@
                 if (!response.ok) throw new Error('Champion list request failed.');
 
                 var result = await response.json();
-                var champions = Object.values(result.data);
 
-                champions.sort((a, b) => a.name.localeCompare(b.name));
+                allChampions = Object.values(result.data);
+                allChampions.sort((a, b) => a.name.localeCompare(b.name));
+
+                // Use filtered champions when searching.
+                var champions = isSearching ? filteredChampions : allChampions;
 
                 totalChampions = champions.length;
                 lastPage = Math.ceil(totalChampions / perPageLoad);
 
+                if (lastPage < 1) lastPage = 1;
                 if (page < 1 || page > lastPage) page = 1;
 
                 elParent.innerHTML = '';
-                renderPagination();
+
+                // Hide pagination when searching.
+                if (isSearching) {
+                    elPaginationNav.classList.remove('show');
+                    elPagination.innerHTML = '';
+                } else {
+                    renderPagination();
+                }
+
+                // Display message when no champions are found.
+                if (champions.length === 0) {
+                    elParent.innerHTML = `
+                        <div class="col-12 text-center text-secondary py-5">
+                            No champions found.
+                        </div>
+                    `;
+                    return;
+                }
 
                 var start = perPageLoad * (page - 1);
                 var end = Math.min(start + perPageLoad, totalChampions);
@@ -161,7 +198,6 @@
                     var title = champion.title;
                     var tags = champion.tags;
 
-                    // Splash art uses the champion ID returned by champion.json.
                     var picture = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${id}_0.jpg`;
 
                     elParent.innerHTML += `
@@ -188,7 +224,9 @@
                 }
 
                 // Keep the current page in the address bar.
-                window.history.replaceState(null, '', '?page=' + page);
+                if (!isSearching) {
+                    window.history.replaceState(null, '', '?page=' + page);
+                }
 
             } catch (error) {
                 elParent.innerHTML = `
@@ -199,6 +237,33 @@
                 console.error('API Error:', error);
             }
         };
+
+        // Search champions by name or role.
+        elSearchForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var searchValue = elSearchInput.value.trim().toLowerCase();
+
+            // Empty search displays all champions.
+            if (searchValue === '') {
+                isSearching = false;
+                filteredChampions = [];
+                page = 1;
+                getChampions();
+                return;
+            }
+
+            // Filter by champion name or role.
+            filteredChampions = allChampions.filter(champion =>
+                champion.name.toLowerCase().includes(searchValue) ||
+                champion.tags.some(role => role.toLowerCase().includes(searchValue))
+            );
+
+            isSearching = true;
+            page = 1;
+
+            getChampions();
+        });
 
         // Show pagination only when the bottom trigger is visible.
         const paginationObserver = new IntersectionObserver((entries) => {
@@ -214,12 +279,15 @@
         paginationObserver.observe(document.getElementById("paginationTrigger"));
 
         function goToPage(number) {
+            if (isSearching) return;
+
             page = number;
             getChampions();
         }
 
         // Previous Page
         function prev() {
+            if (isSearching) return;
 
             page -= 1;
 
@@ -232,6 +300,7 @@
 
         // Next Page
         function next() {
+            if (isSearching) return;
 
             page += 1;
 
