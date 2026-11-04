@@ -3,14 +3,24 @@
 // type: "landing" | "websites" | "gamedev"
 // ============================================
 const projects = [
+    // {
+    //   title: "Next Project",
+    //   type: "landing",
+    //   desc: "Description here.",
+    //   img: "assets/imgs/next.png",
+    //   tech: ["HTML", "CSS", "JavaScript"],
+    //   live: "ACT03/index.html",
+    //   source: "https://github.com/...",
+    // },
     {
-        title: "a.Blog",
+        title: "LeagueofLegends",
+        subtitle: "Champions",
         type: "websites",
-        desc: "A personal blog website where posts can be written, browsed, and saved, all in a single page.",
-        img: "assets/imgs/poster/ACT02/ablog-poster.png",
-        tech: ["HTML", "CSS", "Bootstrap", "JavaScript"],
-        live: "ACT02/index.html",
-        source: "https://github.com/patwickssss/_webdev/tree/main/ACT02",
+        desc: "A website that allows users to browse and view detailed information about League of Legends champions, including their abilities and lore.",
+        img: "assets/imgs/poster/ACT03/lol-poster.png",
+        tech: ["HTML", "Bootstrap", "CSS", "JavaScript"],
+        live: "ACT03/index.html",
+        source: "https://github.com/patwickssss/_webdev/tree/main/ACT03",
     },
     {
         title: "a.Gallery",
@@ -21,15 +31,15 @@ const projects = [
         live: "ACT01/index.html",
         source: "https://github.com/patwickssss/_webdev/tree/main/ACT01",
     },
-    // {
-    //   title: "Next Project",
-    //   type: "landing",
-    //   desc: "Description here.",
-    //   img: "assets/imgs/next.png",
-    //   tech: ["HTML", "CSS", "JavaScript"],
-    //   live: "ACT03/index.html",
-    //   source: "https://github.com/...",
-    // },
+    {
+        title: "a.Blog",
+        type: "websites",
+        desc: "A personal blog website where posts can be written, browsed, and saved, all in a single page.",
+        img: "assets/imgs/poster/ACT02/ablog-poster.png",
+        tech: ["HTML", "CSS", "Bootstrap", "JavaScript"],
+        live: "ACT02/index.html",
+        source: "https://github.com/patwickssss/_webdev/tree/main/ACT02",
+    },
 ];
 
 // ============================================
@@ -37,32 +47,48 @@ const projects = [
 // ============================================
 const frameColors = ["--coral", "--mint", "--sun"];
 const techTag = (t) => `
-  <span class="d-flex border border-2 rounded-3 px-2 align-items-center fw-medium"
+<span class="d-flex border border-2 rounded-3 px-2 py-1 align-items-center fw-medium"
         style="background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;">${t}</span>`;
+
+// Limit the description to a certain number of characters and add ellipsis if it exceeds the limit.
+const truncateDesc = (desc, limit = 85) => {
+    return desc.length > limit ? desc.slice(0, limit) + "..." : desc;
+};
+
+// Limit the description to a certain number of words and add ellipsis if it exceeds the limit.
+// const truncateDesc = (desc, limit = 10) => {
+//     const words = desc.split(" ");
+
+//     return words.length > limit
+//         ? words.slice(0, limit).join(" ") + "..."
+//         : desc;
+// };
 
 document.getElementById("projectList").innerHTML = projects
     .map(
         (p, i) => `
-  <div class="col-md-6 col-lg-4 project" data-type="${p.type}">
-    <div class="card project-card rounded-4 overflow-hidden box-shadow text-light border-2 border-dark"
-         style="min-height: 250px;" data-bs-toggle="modal" data-bs-target="#projectModal" data-index="${i}">
-      <div class="d-flex align-items-center gap-3 py-2 px-3 border-0 border-bottom border-2 border-dark"
-           style="background: var(${frameColors[i % frameColors.length]});">
-        <span class="dot" style="background: var(--sun);"></span>
-        <span class="dot" style="background: var(--paper);"></span>
-        <span class="dot" style="background: var(--mint);"></span>
-        <span class="bg-light w-100 text-dark px-3 py-1 ms-2 rounded-5">${p.title.toLowerCase()}.com</span>
-      </div>
-      <div class="card" style="height: 230px; background: var(--muted);">
-        ${p.img ? `<img src="${p.img}" alt="${p.title}">` : ""}
-      </div>
-      <div class="d-flex flex-column flex-grow-1 py-3 px-4" style="color: var(--ink);">
-        <div class="h5 fw-bold">${p.title}</div>
-        <p style="text-align: justify;">${p.desc}</p>
-        <div class="d-flex flex-wrap gap-2 mb-3">${p.tech.map(techTag).join("")}</div>
-      </div>
-    </div>
-  </div>`
+            <div class="col-md-6 col-lg-4 project" data-type="${p.type}">
+                <div class="card project-card rounded-4 overflow-hidden box-shadow text-light border-2 border-dark"
+                    style="min-height: 250px;" data-bs-toggle="modal" data-bs-target="#projectModal" data-index="${i}">
+                <div class="d-flex align-items-center gap-3 py-2 px-3 border-0 border-bottom border-2 border-dark"
+                    style="background: var(${frameColors[i % frameColors.length]});">
+                    <span class="dot" style="background: var(--sun);"></span>
+                    <span class="dot" style="background: var(--paper);"></span>
+                    <span class="dot" style="background: var(--mint);"></span>
+                    <span class="bg-light w-100 text-dark px-3 py-1 ms-2 rounded-5">
+                        ${p.title.toLowerCase()}.com${p.subtitle ? `/${p.subtitle.toLowerCase()}` : ""}
+                    </span>
+                </div>
+                <div class="project-preview">
+                    ${p.img ? `<img src="${p.img}" alt="${p.title}">` : ""}
+                </div>
+                <div class="d-flex flex-column flex-grow-1 py-3 px-4" style="color: var(--ink);">
+                    <div class="h5 fw-bold">${p.title}</div>
+                    <p style="text-align: justify;">${truncateDesc(p.desc)}</p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">${p.tech.map(techTag).join("")}</div>
+                </div>
+                </div>
+            </div>`
     )
     .join("");
 
@@ -72,7 +98,7 @@ document.getElementById("projectList").innerHTML = projects
 document.getElementById("projectModal").addEventListener("show.bs.modal", (e) => {
     const p = projects[e.relatedTarget.dataset.index];
 
-    document.getElementById("projectModalTitle").textContent = p.title;
+    document.getElementById("projectModalTitle").textContent = p.subtitle ? `${p.title} - ${p.subtitle}` : p.title;
     document.getElementById("projectModalDesc").textContent = p.desc;
     document.getElementById("projectModalTech").innerHTML = p.tech.map(techTag).join("");
 
