@@ -54,7 +54,7 @@ INDEX.HTML - CHAMPION COLLECTION
 /* Target all form controls */
 .form-control::placeholder {
     color: var(--white); 
-    opacity: 0.3;    /* Required to override Bootstrap and browser defaults */
+    opacity: 0.7;    /* Required to override Bootstrap and browser defaults */
 }
 
 
