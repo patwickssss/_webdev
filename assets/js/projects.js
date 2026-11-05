@@ -17,7 +17,7 @@ const projects = [
         subtitle: "Champions",
         type: "websites",
         desc: "A website that allows users to browse and view detailed information about League of Legends champions, including their abilities and lore.",
-        img: "assets/imgs/poster/ACT03/lol-poster.png",
+        img: "assets/imgs/poster/ACT03/LOL-poster.png",
         tech: ["HTML", "Bootstrap", "CSS", "JavaScript"],
         live: "ACT03/index.html",
         source: "https://github.com/patwickssss/_webdev/tree/main/ACT03",
@@ -51,18 +51,18 @@ const techTag = (t) => `
         style="background: var(--paper); color: var(--ink); border-color: var(--muted); font-size: small;">${t}</span>`;
 
 // Limit the description to a certain number of characters and add ellipsis if it exceeds the limit.
-const truncateDesc = (desc, limit = 85) => {
-    return desc.length > limit ? desc.slice(0, limit) + "..." : desc;
-};
+// const truncateDesc = (desc, limit = 85) => {
+//     return desc.length > limit ? desc.slice(0, limit) + "..." : desc;
+// };
 
 // Limit the description to a certain number of words and add ellipsis if it exceeds the limit.
-// const truncateDesc = (desc, limit = 10) => {
-//     const words = desc.split(" ");
+const truncateDesc = (desc, limit = 10) => {
+    const words = desc.split(" ");
 
-//     return words.length > limit
-//         ? words.slice(0, limit).join(" ") + "..."
-//         : desc;
-// };
+    return words.length > limit
+        ? words.slice(0, limit).join(" ") + "..."
+        : desc;
+};
 
 document.getElementById("projectList").innerHTML = projects
     .map(
